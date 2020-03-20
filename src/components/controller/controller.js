@@ -15,6 +15,9 @@ import getServiceInfo from './ops/get_service_info.js';
 import checkUsername from './ops/check_username.js';
 import mfaVerify from './ops/mfa_verify.js';
 
+import createStream from './ops/create_stream';
+import createEvent from './ops/create_event';
+
 function tryAndCatch (ctx, fun) {
   return async (...args: Array<*>) => {
     try {
@@ -42,6 +45,8 @@ function controllerFactory (ctx: Context) {
     getServiceInfo: tryAndCatch(ctx, getServiceInfo),
     checkUsername: tryAndCatch(ctx, checkUsername),
     mfaVerify: tryAndCatch(ctx, mfaVerify),
+    createStream: tryAndCatch(ctx, createStream),
+    createEvent: tryAndCatch(ctx, createEvent),
   };
 }
 

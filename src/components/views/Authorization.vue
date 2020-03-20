@@ -128,6 +128,17 @@ export default {
         this.submitting = true;
         try {
           await this.c.login(this.password);
+
+          console.log('login done', this.ctx);
+          if (this.ctx.user.email != null) {
+            try { await this.c.createStream('profileEmail','Email') } catch (e) {} // ignore if already exists
+            await this.c.createEvent({
+              streamId: 'profileEmail',
+              type: 'email-address/string',
+              content: this.ctx.user.email,
+            });
+          }
+
           if (!this.mfaActivated) {
             await this.c.checkAccess(this.showPermissions);
           }
@@ -157,6 +168,7 @@ export default {
     accept () {
       this.c.acceptAccess()
         .catch(this.showError);
+      
     },
     // The user refuses the requested permissions
     refuse () {

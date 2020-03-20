@@ -24,6 +24,7 @@ class Context {
     username: string,
     personalToken: string,
     mfaToken: string,
+    email: ?string,
   }
   clientData: ?{};
 

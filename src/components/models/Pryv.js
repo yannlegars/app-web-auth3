@@ -260,6 +260,25 @@ class Pryv {
     const res = await axios.get(this.serviceInfoUrl);
     return res.data;
   }
+
+  // --------- PATCH calls ----------
+
+  async createStream (username: string, token: string, streamId: string, streamName: string, parentId: ?string): Promise<Object> {
+    const res = await axios.post(this.core(username, 'streams'), {
+      id: streamId,
+      name: streamName,
+    }, {
+      headers: { Authorization: token },
+    });
+    return res.stream;
+  }
+
+  async createEvent (username: string, token: string, eventData: Object): Promise<Object> {
+    const res = await axios.post(this.core(username, 'events'), eventData, {
+      headers: { Authorization: token },
+    });
+    return res.event;
+  }
 }
 
 export default Pryv;
